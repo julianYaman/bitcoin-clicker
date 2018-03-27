@@ -126,7 +126,7 @@ var Game = {}
 // Every constant variable is saved here
 Game.GameConst = {
   "priceMultiplier": 1.15,
-  "VERSION": "1.1.0"
+  "VERSION": "1.1.1"
 }
 
 
@@ -327,6 +327,15 @@ Game.stopBsec = function () {
   clearInterval(bSec)
 }
 
+/**
+ * Resets the game
+ */
+Game.resetGame = function () {
+  Game.stopBsec()
+  localStorage.setItem("bitcoins", "0")
+  localStorage.clear()
+  location.reload()
+}
 
 // --------------------------------------------------- //
 
@@ -447,6 +456,12 @@ $(document).ready(function () {
 
     }
 
+  })
+
+  //
+  // If the reset button was pressed, do following thing
+  $(".resetButton").click(function () {
+    Game.resetGame()
   })
 
 });
