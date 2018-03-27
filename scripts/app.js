@@ -1,12 +1,8 @@
 var bitcoins = 0
 var bitcoinRate = 0
 
-var GameConst = {
-  "priceMultiplier": 1.15,
-  "VERSION": "1.1.0"
-}
-
 // Every item in the game
+// TODO: items should be part of the Game variable
 var items = [
   {
     "name": "item_oldCalculator",
@@ -85,9 +81,6 @@ var items = [
 // Rate is null (at the beginning)
 var bSec = null;
 
-// Should be deleted after if is no more needed
-localStorage.setItem("bitcoins", "0");
-
 // If there is no bitcoins Item in the localStorage, create one.
 // If there is one, do the other thing.
 if(localStorage.getItem("bitcoins") === null){
@@ -126,8 +119,17 @@ if(localStorage.getItem("bitcoins") === null){
 
 
 
-// Game variable which will contain any needed major function for the game
+// Game variable which will contain any needed major function or needed variables for the game.
 var Game = {}
+
+
+// Every constant variable is saved here
+Game.GameConst = {
+  "priceMultiplier": 1.15,
+  "VERSION": "1.1.0"
+}
+
+
 
 /**
  * Calculating every price for the items when the game was started (and if there are any items).
@@ -136,10 +138,13 @@ var Game = {}
  * @param price {Number} - The price of the item, got from the items Object
  * @param itemAmount {Number} - The current amount of the item, saved in the localStorage
  */
+
 Game.setPriceAtGameBeginning = function (element, price, itemAmount) {
 
   // Calculation of the price
-  var multiplier = GameConst.priceMultiplier
+  var multiplier = Game.GameConst.priceMultiplier
+
+  // Calculate the new price -> price * multiplier^itemAmount
   var calculation = (parseFloat(price) * Math.pow(multiplier, parseInt(itemAmount))).toFixed(8)
 
   // Showing the actual price
@@ -149,6 +154,8 @@ Game.setPriceAtGameBeginning = function (element, price, itemAmount) {
   element.attr("data-price", calculation.toString())
 
 }
+
+
 
 /**
  * Function to increase the amount of the item (in the localStorage) with the specific identifier.
@@ -170,6 +177,8 @@ Game.itemAction = function (id) {
   }
 
 }
+
+
 
 /**
  * Calculating the Bitcoins per Second - rate when the page was opened.
@@ -216,6 +225,8 @@ Game.setBitcoinPerSecondRateAtBeginning = function () {
 
 }
 
+
+
 /**
  * Function which sets a new "Bitcoin per Second" rate
  *
@@ -242,6 +253,8 @@ Game.setNewBitcoinRate = function (rate) {
 
 }
 
+
+
 /**
  * This function will check if there is any change in the localStorage,
  * especially looking at the item amount. So it will actually calculate every price again and
@@ -265,7 +278,7 @@ Game.setNewPrice = function()
       if(itemAmount > 0) {
 
         // Calculation of the price
-        var multiplier = GameConst.priceMultiplier
+        var multiplier = Game.GameConst.priceMultiplier
         var calculation = (parseFloat(items[i].price) * Math.pow(multiplier, parseInt(itemAmount))).toFixed(8)
 
         // Showing the actual price
@@ -314,6 +327,9 @@ Game.stopBsec = function () {
   clearInterval(bSec)
 }
 
+
+// --------------------------------------------------- //
+
 /**
  * <-- Now doing everything -->
  */
@@ -332,7 +348,7 @@ bSec = setInterval(function () {
 $(document).ready(function () {
 
   // Write the version into the .version span element
-  $(".version").text("Version " + GameConst.VERSION)
+  $(".version").text("Version " + Game.GameConst.VERSION)
 
   // Write the bitcoin per second rate into the .bSecRateNumber span element
   if(bitcoinRate >= 1000){
@@ -370,11 +386,19 @@ $(document).ready(function () {
   $(".purchaseItem").click(function () {
 
     // Get following attributes and children elements
+
+    // id of the item
     var id = $(this).attr("id")
+
+    // The price attribute as a float number
     var price = parseFloat($(this).attr("data-price"))
+
+    // The b/sec attribute from the item as a float number
     var bitcoinsPerSecond = parseFloat($(this).attr("data-bits-per-sec"))
+
+    // The element which shows how many of the item is existing
     var amountDisplay = $(this).children()[0]
-    var amountDisplayAmount = parseInt(amountDisplay.textContent)
+    var amountDisplayAmount = parseInt(localStorage.getItem(id))
 
     var priceDisplay = $(this).children()[2]
 
