@@ -2,8 +2,9 @@
 
 This repository contains the source code of the game **Bitcoin Clicker**.
 
-You can play the current **stable** version here: [Play now!](https://julianyaman.github.io/bitcoinClicker/index.html)
+You can play the current **stable** version here: [Play now!](https://julianyaman.github.io/bitcoin-clicker/index.html)
 
+## Changelog - [here](https://github.com/julianYaman/bitcoin-clicker/blob/master/CHANGELOG.md)
 
 ## Contributing
 
@@ -21,10 +22,10 @@ I recommand that you follow this order:
 
 There are following things planned for future updates:
 
-- Revise the item price system
+- Revise the item price system (higher prices, better Bitcoin/second rate)
 - Better code structure
 - Better looking design for the item menu
 - (**BIG**) Special items with the ability to give some bonus.
-- Changelog
+
 
 If you have any other suggestion, just write an issue with your ideas.
