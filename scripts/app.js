@@ -107,7 +107,16 @@ if(localStorage.getItem("bitcoins") === null){
   }else{
     $(".bitcoinAmount").text(bitcoins.toFixed(8))
   }
-  $(".satoshiAmount").text(Math.round(bitcoins * 100000000))
+
+  var satoshis = bitcoins * 100000000;
+
+  // Showing an exponential number after a million was reached
+
+  if(satoshis < 1000000) {
+    $(".satoshiAmount").text(Math.round(satoshis))
+  }else{
+    $(".satoshiAmount").text(satoshis.toExponential(4))
+  }
 
 }
 
@@ -126,7 +135,7 @@ var Game = {}
 // Every constant variable is saved here
 Game.GameConst = {
   "priceMultiplier": 1.15,
-  "VERSION": "1.1.1"
+  "VERSION": "1.1.2"
 }
 
 
@@ -311,7 +320,16 @@ Game.bSecFunction = function (rate) {
   }else{
     $(".bitcoinAmount").text(bitcoins.toFixed(8))
   }
-  $(".satoshiAmount").text(Math.round(bitcoins * 100000000))
+
+  var satoshis = bitcoins * 100000000;
+
+  // Showing an exponential number after a million was reached
+
+  if(satoshis < 1000000) {
+    $(".satoshiAmount").text(Math.round(satoshis))
+  }else{
+    $(".satoshiAmount").text(satoshis.toExponential(4))
+  }
 
   // Save bitcoin amount in the storage
   localStorage.setItem("bitcoins", "" + bitcoins + "")
@@ -412,10 +430,10 @@ $(document).ready(function () {
     var priceDisplay = $(this).children()[2]
 
     // If you have enough Bitcoins, it´ll buy one item
-    if(bitcoins >= price){
+    if(parseFloat(bitcoins.toFixed(8)) >= price){
 
       // Substract the price from the current Bitcoin number and set it to the bitcoins variable.
-      bitcoins = bitcoins - price
+      bitcoins = parseFloat(bitcoins.toFixed(8)) - price
 
       // Save the new amount of Bitcoins in the localStorage storage
       localStorage.setItem("bitcoins", "" + bitcoins + "")
