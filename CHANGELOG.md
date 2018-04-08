@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 - 08.04.2018
+
+- Showing an unit when Bitcoins or Satoshis reached the 1 million border
+
 ## Version 1.1. (+ 1.1.1) - 28.03.2018
 
 - Adding a reset button | https://github.com/julianYaman/bitcoin-clicker/commit/d25beb1bef64082129fcb3479144a8638b9429d0
