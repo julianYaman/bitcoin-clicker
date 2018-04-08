@@ -115,7 +115,63 @@ if(localStorage.getItem("bitcoins") === null){
   if(satoshis < 1000000) {
     $(".satoshiAmount").text(Math.round(satoshis))
   }else{
-    $(".satoshiAmount").text(satoshis.toExponential(4))
+
+    var satoshiSplitted = satoshis.toExponential(3).split(/(e[+][0-9])/g)
+
+    var satoshiExp = satoshiSplitted[1].replace("+", "")
+    satoshiExp = "1" + satoshiExp
+    satoshiExp = parseFloat(satoshiExp)
+
+    // https://gist.github.com/MartinMuzatko/1060fe584d17c7b9ca6e
+    // http://bmanolov.free.fr/numbers_names.php
+    var units =
+      [
+        "Million",
+        "Billion",
+        "Trillion",
+        "Quadrillion",
+        "Quintillion",
+        "Sextillion",
+        "Septillion",
+        "Octillion",
+        "Nonillion",
+        "Decillion",
+        "Undecillion",
+        "Duodecillion",
+        "Tredecillion",
+        "Quattuordecillion",
+        "Quindecillion",
+        "Sexdecillion",
+        "Septdecillion",
+        "Octodecillion",
+        "Novemdecillion",
+        "Vigintillion",
+        "Unvigintillion",
+        "Duovigintillion",
+        "Trevigintillion",
+        "Quattuorvigintillion",
+        "Quinvigintillion",
+        "Sexvigintillion",
+        "Septvigintillion",
+        "Octovigintillion",
+        "Novemvigintillion",
+        "Trigintillion"
+      ]
+
+    // Divide to get SI Unit engineering style numbers (1e3,1e6,1e9, etc)
+    var unit = Math.floor((satoshis / 1000).toFixed(0).toString().length)
+    // Calculate the remainder. 1,000,000 = 1.000 Mill
+    var num = (satoshis / ('1e'+(unit+2))).toFixed(3)
+    // Get the actual unitname
+    var unitname = units[Math.floor(unit / 3) - 1]
+
+    //output number remainder + unitname
+
+    var satoshiUnitNumber = num + " " + unitname
+    console.log(satoshiUnitNumber)
+
+    $(".satoshiAmount").text(satoshiUnitNumber)
+
   }
 
 }
@@ -135,8 +191,41 @@ var Game = {}
 // Every constant variable is saved here
 Game.GameConst = {
   "priceMultiplier": 1.15,
-  "VERSION": "1.1.2"
+  "VERSION": "1.2.0"
 }
+
+Game.units = [
+      "Million",
+      "Billion",
+      "Trillion",
+      "Quadrillion",
+      "Quintillion",
+      "Sextillion",
+      "Septillion",
+      "Octillion",
+      "Nonillion",
+      "Decillion",
+      "Undecillion",
+      "Duodecillion",
+      "Tredecillion",
+      "Quattuordecillion",
+      "Quindecillion",
+      "Sexdecillion",
+      "Septdecillion",
+      "Octodecillion",
+      "Novemdecillion",
+      "Vigintillion",
+      "Unvigintillion",
+      "Duovigintillion",
+      "Trevigintillion",
+      "Quattuorvigintillion",
+      "Quinvigintillion",
+      "Sexvigintillion",
+      "Septvigintillion",
+      "Octovigintillion",
+      "Novemvigintillion",
+      "Trigintillion"
+]
 
 
 
@@ -313,7 +402,21 @@ Game.bSecFunction = function (rate) {
 
   // Show both values on the page
   // Rounding the bitcoin number at specific set values
-  if(bitcoins >= 1000){
+  if(bitcoins > 1000000){
+    // Divide to get SI Unit engineering style numbers (1e3,1e6,1e9, etc)
+    var unit = Math.floor((bitcoins / 1000).toFixed(0).toString().length)
+    // Calculate the remainder. 1,000,000 = 1.000 Mill
+    var num = (bitcoins / ('1e'+(unit+2))).toFixed(3)
+    // Get the actual unitname
+    var unitname = Game.units[Math.floor(unit / 3) - 1]
+
+    //output number remainder + unitname
+
+    var bitcoinUnitNumber = num + " " + unitname
+    console.log(bitcoinUnitNumber)
+
+    $(".bitcoinAmount").text(bitcoinUnitNumber)
+  }else if(bitcoins >= 1000){
     $(".bitcoinAmount").text(bitcoins.toFixed(0))
   }else if(bitcoins >= 1){
     $(".bitcoinAmount").text(bitcoins.toFixed(2))
@@ -328,7 +431,19 @@ Game.bSecFunction = function (rate) {
   if(satoshis < 1000000) {
     $(".satoshiAmount").text(Math.round(satoshis))
   }else{
-    $(".satoshiAmount").text(satoshis.toExponential(4))
+    // Divide to get SI Unit engineering style numbers (1e3,1e6,1e9, etc)
+    var satoshi_unit = Math.floor((satoshis / 1000).toFixed(0).toString().length)
+    // Calculate the remainder. 1,000,000 = 1.000 Mill
+    var satoshi_num = (satoshis / ('1e'+(satoshi_unit+2))).toFixed(3)
+    // Get the actual unitname
+    var satoshi_unitname = Game.units[Math.floor(satoshi_unit / 3) - 1]
+
+    //output number remainder + unitname
+
+    var satoshiUnitNumber = satoshi_num + " " + satoshi_unitname
+    console.log(satoshiUnitNumber)
+
+    $(".satoshiAmount").text(satoshiUnitNumber)
   }
 
   // Save bitcoin amount in the storage
@@ -394,14 +509,45 @@ $(document).ready(function () {
     bitcoins = bitcoins + 0.00000001
 
     // Show the new number on the page
-    if(bitcoins >= 1000){
+    if(bitcoins > 1000000){
+      // Divide to get SI Unit engineering style numbers (1e3,1e6,1e9, etc)
+      var unit = Math.floor((bitcoins / 1000).toFixed(0).toString().length)
+      // Calculate the remainder. 1,000,000 = 1.000 Mill
+      var num = (bitcoins / ('1e'+(unit+2))).toFixed(3)
+      // Get the actual unitname
+      var unitname = Game.units[Math.floor(unit / 3) - 1]
+
+      //output number remainder + unitname
+
+      var bitcoinUnitNumber = num + " " + unitname
+      console.log(bitcoinUnitNumber)
+
+      $(".bitcoinAmount").text(bitcoinUnitNumber)
+    }else if(bitcoins >= 1000){
       $(".bitcoinAmount").text(bitcoins.toFixed(0))
     }else if(bitcoins >= 1){
       $(".bitcoinAmount").text(bitcoins.toFixed(2))
     }else{
       $(".bitcoinAmount").text(bitcoins.toFixed(8))
     }
-    $(".satoshiAmount").text(Math.round(bitcoins * 100000000))
+
+    if(satoshis < 1e6) {
+      $(".satoshiAmount").text(Math.round(satoshis))
+    }else{
+      // Divide to get SI Unit engineering style numbers (1e3,1e6,1e9, etc)
+      var satoshi_unit = Math.floor((satoshis / 1000).toFixed(0).toString().length)
+      // Calculate the remainder. 1,000,000 = 1.000 Mill
+      var satoshi_num = (satoshis / ('1e'+(satoshi_unit+2))).toFixed(3)
+      // Get the actual unitname
+      var satoshi_unitname = Game.units[Math.floor(satoshi_unit / 3) - 1]
+
+      //output number remainder + unitname
+
+      var satoshiUnitNumber = satoshi_num + " " + satoshi_unitname
+      console.log(satoshiUnitNumber)
+
+      $(".satoshiAmount").text(satoshiUnitNumber)
+    }
 
     // Save the new amount of Bitcoins in the localStorage storage
     localStorage.setItem("bitcoins", "" + bitcoins + "")
@@ -444,7 +590,21 @@ $(document).ready(function () {
 
       // Changing the Bitcoins amount
       // Rounding the Bitcoin number at specific values
-      if(bitcoins >= 1000){
+      if(bitcoins > 1e6){
+        // Divide to get SI Unit engineering style numbers (1e3,1e6,1e9, etc)
+        var unit = Math.floor((bitcoins / 1000).toFixed(0).toString().length)
+        // Calculate the remainder. 1,000,000 = 1.000 Mill
+        var num = (bitcoins / ('1e'+(unit+2))).toFixed(3)
+        // Get the actual unitname
+        var unitname = Game.units[Math.floor(unit / 3) - 1]
+
+        //output number remainder + unitname
+
+        var bitcoinUnitNumber = num + " " + unitname
+        console.log(bitcoinUnitNumber)
+
+        $(".bitcoinAmount").text(bitcoinUnitNumber)
+      }else if(bitcoins >= 1000){
         $(".bitcoinAmount").text(bitcoins.toFixed(0))
       }else if(bitcoins >= 1){
         $(".bitcoinAmount").text(bitcoins.toFixed(2))
@@ -453,7 +613,23 @@ $(document).ready(function () {
       }
 
       // Calculation the Satoshi amount
-      $(".satoshiAmount").text(Math.round(bitcoins * 100000000))
+      if(satoshis < 1e6) {
+        $(".satoshiAmount").text(Math.round(satoshis))
+      }else{
+        // Divide to get SI Unit engineering style numbers (1e3,1e6,1e9, etc)
+        var satoshi_unit = Math.floor((satoshis / 1000).toFixed(0).toString().length)
+        // Calculate the remainder. 1,000,000 = 1.000 Mill
+        var satoshi_num = (satoshis / ('1e'+(satoshi_unit+2))).toFixed(3)
+        // Get the actual unitname
+        var satoshi_unitname = Game.units[Math.floor(satoshi_unit / 3) - 1]
+
+        //output number remainder + unitname
+
+        var satoshiUnitNumber = satoshi_num + " " + satoshi_unitname
+        console.log(satoshiUnitNumber)
+
+        $(".satoshiAmount").text(satoshiUnitNumber)
+      }
 
       // Increasing the amount of the specific item
       Game.itemAction(id)
