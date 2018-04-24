@@ -34,7 +34,7 @@ body{
 /* Left Container */
 /* just a placeholder atm */
 .leftContainer{
-    width: calc(100% * 0.3);
+    width: calc(100% * 0.25);
 }
 
 .version{
@@ -58,13 +58,13 @@ body{
 /* Main Container */
 /* THE BITCOIN IMAGE */
 .mainGameContent{
-    width: calc(100% * 0.4);
+    width: calc(100% * 0.5);
 }
 
 /* Right Container */
 /* All items which you can buy */
 .rightContainer{
-    width: calc(100% * 0.3);
+    width: calc(100% * 0.25);
     border: 4px solid white;
     max-height: 96vh;
     overflow-y: auto;
@@ -98,25 +98,25 @@ body{
 
 /* BITCOIN */
 .bitcoin{
-    width: 30%;
+    width: 25%;
     display: block;
     position: absolute;
     left: 30%;
     right: 30%;
     margin: 0 auto;
-    top: 18%;
+    top: 25%;
     transition: width 0.2s ease-in-out, top 0.2s ease-in-out;
     animation: rotation 20s linear infinite;
     border-radius: 500px;
 }
 .bitcoin:hover{
-    width: 32%;
-    top: 16%;
+    width: 27%;
+    top: 23%;
     transition: width 0.2s ease-in-out, top 0.2s ease-in-out;
 }
 .bitcoin:active{
-    width: 28%;
-    top: 20%;
+    width: 23%;
+    top: 27%;
     transition: width 0.2s ease-in-out, top 0.2s ease-in-out;
 }
 
@@ -126,6 +126,34 @@ body{
     font-family: "VCR OSD Mono", cursive;
     margin: 0;
     padding: 0;
+}
+
+/* Optimization for smaller screens */
+
+@media screen and (max-width: 767px) {
+    /* BITCOIN */
+    .bitcoin{
+        width: 35%;
+        display: block;
+        position: absolute;
+        left: 30%;
+        right: 30%;
+        margin: 0 auto;
+        top: 35%;
+        transition: width 0.2s ease-in-out, top 0.2s ease-in-out;
+        animation: rotation 20s linear infinite;
+        border-radius: 500px;
+    }
+    .bitcoin:hover{
+        width: 37%;
+        top: 33%;
+        transition: width 0.2s ease-in-out, top 0.2s ease-in-out;
+    }
+    .bitcoin:active{
+        width: 33%;
+        top: 37%;
+        transition: width 0.2s ease-in-out, top 0.2s ease-in-out;
+    }
 }
 
 /* Item list item */
