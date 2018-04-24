@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test-File</title>
+</head>
+<body>
+    <pre>Test</pre>
+    <script>
+      var units = [
+        "",
+        "Million",
+        "Billion",
+        "Trillion",
+        "Quadrillion",
+        "Quintillion",
+        "Sextillion",
+        "Septillion",
+        "Octillion",
+        "Nonillion",
+        "Decillion",
+        "Undecillion",
+        "Duodecillion",
+        "Tredecillion",
+        "Quattuordecillion",
+        "Quindecillion",
+        "Sexdecillion",
+        "Septdecillion",
+        "Octodecillion",
+        "Novemdecillion",
+        "Vigintillion",
+        "Unvigintillion",
+        "Duovigintillion",
+        "Trevigintillion",
+        "Quattuorvigintillion",
+        "Quinvigintillion",
+        "Sexvigintillion",
+        "Septvigintillion",
+        "Octovigintillion",
+        "Novemvigintillion",
+        "Trigintillion"
+      ]
+        
+      function _optimizeNumbers () {
+        if(this >= 1e6){
+          let number = parseFloat(this)
+          let unit = Math.floor(parseFloat(number.toExponential(0).toString().replace("+", "").slice(2)) / 3) * 3
+
+          // let test = this.toExponential(0).toString().replace("+", "").slice(2)
+          // console.log(test)
+
+          var num = (this / ('1e'+(unit))).toFixed(2)
+
+          var unitname = units[Math.floor(unit / 3) - 1]
+
+          return num + " " + unitname
+        }
+
+        return this.toLocaleString()
+      }
+
+      Number.prototype._optimizeNumbers = _optimizeNumbers
+      String.prototype._optimizeNumbers = _optimizeNumbers
+
+      var number = "1.5e93";
+
+      // Show both values on the page
+      // Rounding the bitcoin number at specific set values
+      if(number > 1000000) {
+        console.log(number._optimizeNumbers())
+      }
+
+          </script>
+</body>
+</html>
