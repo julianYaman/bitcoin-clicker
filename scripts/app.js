@@ -101,7 +101,7 @@ if(localStorage.getItem("bitcoins") === null){
   $(".bitcoinAmount").text("loading...")
   $(".satoshiAmount").text("loading...")
 
-  var satoshis = bitcoins * 100000000;
+  let satoshis = bitcoins * 100000000;
 
 }
 
@@ -120,7 +120,7 @@ var Game = {}
 // Every constant variable is saved here
 Game.GameConst = {
   "priceMultiplier": 1.15,
-  "VERSION": "1.2.0"
+  "VERSION": "1.4.0"
 }
 
 Game.units = [
@@ -267,7 +267,9 @@ Game.setNewBitcoinRate = function (rate) {
 
   // Showing the new rate on the page
   // Rounding at specific values
-  if((bitcoinRate + rate) >= 1000){
+  if((bitcoinRate + rate) >= 1000000) {
+    $(".bSecRateNumber").text((bitcoinRate + rate).toFixed(0).optimizeNumber())
+  }else if((bitcoinRate + rate) >= 1000 ){
     $(".bSecRateNumber").text((bitcoinRate + rate).toFixed(0))
   }else if((bitcoinRate + rate) >= 1 ){
     $(".bSecRateNumber").text((bitcoinRate + rate).toFixed(2))
@@ -345,8 +347,7 @@ Game.bSecFunction = function (rate) {
   }
 
 
-
-
+  // Rounding the satoshis amount at a specific value and optimize it for displaying on the screen.
   var satoshis = bitcoins * 100000000;
 
   if(satoshis < 1000000) {
@@ -354,7 +355,6 @@ Game.bSecFunction = function (rate) {
   }else{
 
     let satoshiUnitNumber = satoshis.optimizeNumber()
-
     $(".satoshiAmount").text(satoshiUnitNumber)
   }
 
@@ -460,13 +460,12 @@ $(document).ready(function () {
       $(".bitcoinAmount").text(bitcoins.toFixed(8))
     }
 
-    if(satoshis < 1e6) {
-      $(".satoshiAmount").text(Math.round(satoshis))
+    if((bitcoins * 100000000) < 1000000) {
+      $(".satoshiAmount").text(Math.round((bitcoins * 100000000)))
     }else{
 
-      let satoshiUnitNumber = satoshis.optimizeNumber()
+      let satoshiUnitNumber = (bitcoins * 100000000).optimizeNumber()
       $(".satoshiAmount").text(satoshiUnitNumber)
-
     }
 
     // Save the new amount of Bitcoins in the localStorage storage
@@ -524,11 +523,11 @@ $(document).ready(function () {
       }
 
       // Calculation the Satoshi amount
-      if(satoshis < 1e6) {
-        $(".satoshiAmount").text(Math.round(satoshis))
+      if((bitcoins * 100000000) < 1e6) {
+        $(".satoshiAmount").text(Math.round((bitcoins * 100000000)))
       }else{
 
-        let satoshiUnitNumber = satoshis.optimizeNumber()
+        let satoshiUnitNumber = (bitcoins * 100000000).optimizeNumber()
         $(".satoshiAmount").text(satoshiUnitNumber)
 
       }
