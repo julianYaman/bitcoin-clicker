@@ -1,6 +1,3 @@
-//Dear John
-//Your changes
-// Are on line 554 554 554 554 554 554 554 554 554 554 554 554 554 554 554 554 554 554 554 554 554 554 554 554 554 554
 var bitcoins = 0
 var bitcoinRate = 0
 
@@ -553,7 +550,20 @@ $(document).ready(function () {
     }
     //Make numbers turn red if money isn't enough
     else {
-      amountDisplay.style.color = "red"
+      let origColor = amountDisplay.style.color;
+      let times = 0;
+      function blink_text() {
+        amountDisplay.style.color = "red"
+        if (times < 4) {
+          $(amountDisplay).fadeOut(500);
+          $(amountDisplay).fadeIn(500);
+          times++;
+        }
+        else {
+          amountDisplay.style.color = origColor;
+        }
+      }
+      setInterval(blink_text, 1000);
     }
 
   })
