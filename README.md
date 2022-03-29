@@ -1,8 +1,13 @@
-# Bitcoin Clicker
+<p align="center">
+    <img src="https://github.com/julianYaman/bitcoin-clicker/blob/master/images/bitcoin-8bit.png?raw=true" width=200 />
+</p>
+
+<h1 align="center"> Bitcoin Clicker </h1>
+<h2 align="center"><a href="https://julianyaman.github.io/bitcoin-clicker/index.html" target="_blank">Play now!</a></h2>
+
+**Currently, there is no active development on this game. If you are interested in contributing to it and give it a nice revamp, please contact me on [Discord](https://discord.com/invite/ccpgH3b) or [Twitter](https://twitter.com/julianYaman).**
 
 This repository contains the source code of the game **Bitcoin Clicker**.
-
-You can play the current **stable** version here: [Play now!](https://julianyaman.github.io/bitcoin-clicker/index.html)
 
 ## Changelog - [here](https://github.com/julianYaman/bitcoin-clicker/blob/master/CHANGELOG.md)
 
@@ -26,6 +31,5 @@ There are following things planned for future updates:
 - Better code structure
 - Better looking design for the item menu
 - (**BIG**) Special items with the ability to give some bonus.
-
 
 If you have any other suggestion, just write an issue with your ideas.
